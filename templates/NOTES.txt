@@ -1,0 +1,12 @@
+1. Get the NodePort of your service:
+
+   export NODE_PORT=$(kubectl get --namespace {{ .Release.Namespace }} -o jsonpath="{.spec.ports[0].nodePort}" services {{ include "todo-chart.fullname" . }})
+
+2. Get the external IP address of one of your nodes:
+
+   export NODE_IP=$(kubectl get nodes --namespace {{ .Release.Namespace }} -o jsonpath="{.items[0].status.addresses[0].address}")
+
+3. Access the application using the NodePort and Node IP:
+
+   http://$NODE_IP:$NODE_PORT
+
